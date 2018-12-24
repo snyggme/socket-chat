@@ -65,12 +65,13 @@ module.exports = socket => {
 		sendTypingFromUser(chatId, isTyping)
 	})
 
-	socket.on('ADD_USER_TO_CHAT', (data, callback) => {
-		let chat = findChatById(data.chatId);
+	socket.on('ADD_USER_TO_CHAT', ({ chatId, user }, callback) => {
+		let chat = findChatById(chatId);
 
-		chat = addUserToChat(chat, data.user);
-
-		callback(chat);
+		if (chat !== undefined) {
+			chat = addUserToChat(chat, user);
+			callback(chat);
+		}		
 	})
 }
 

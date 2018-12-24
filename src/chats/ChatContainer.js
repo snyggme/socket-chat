@@ -85,7 +85,6 @@ class ChatContainer extends Component {
 		}
 	}
 	setActiveChat(activeChat) {
-		console.log(activeChat)
 		this.setState({ activeChat })
 	}
 	sendMessage(chatId, message) {
