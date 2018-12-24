@@ -22,7 +22,7 @@ class ChatContainer extends Component {
 	componentDidMount() {
 		const { socket } = this.props;
 
-		socket.emit('ADD_CHAT', this.addChat)
+		socket.emit('CREATE_CHAT', this.addChat)
 	}
 	resetChat(chat) {
 		
@@ -99,16 +99,18 @@ class ChatContainer extends Component {
 		socket.emit('TYPING', { chatId, isTyping })
 	}
 	render() {
-		const { user, logout } = this.props;
+		const { user, logout, socket } = this.props;
 		const { chats, activeChat } = this.state;
 		return (
 			<div className='chat'>
 				<SideBar 
 					logout={logout}
+					socket={socket}
 					user={user}
 					chats={chats}
 					activeChat={activeChat}
 					setActiveChat={this.setActiveChat}
+					addChat={this.addChat}
 				/>
 				<div className='chatroom-container'>
 					{

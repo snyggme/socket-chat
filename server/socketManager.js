@@ -31,8 +31,11 @@ module.exports = socket => {
 		console.log(connectedUsers);
 	})
 
-	socket.on('ADD_CHAT', (callback) => {
-		const chat = createChat({name: `${socket.user.name}'s chat room`})
+	socket.on('CREATE_CHAT', (callback) => {
+		const chat = createChat({
+			name: `${socket.user.name}'s chat room`, 
+			users: [socket.user]
+		})
 		allChats.push(chat);
 
         callback(chat, true);
@@ -61,6 +64,26 @@ module.exports = socket => {
 	socket.on('TYPING', ({ chatId, isTyping }) => {
 		sendTypingFromUser(chatId, isTyping)
 	})
+
+	socket.on('ADD_USER_TO_CHAT', (data, callback) => {
+		let chat = findChatById(data.chatId);
+
+		chat = addUserToChat(chat, data.user);
+
+		callback(chat);
+	})
+}
+
+const addUserToChat = (chat, user) => {
+	let newChat = { ...chat };
+
+	newChat.users.push(user);
+
+	return newChat;
+}
+
+const findChatById = (chatId) => {
+	return allChats[allChats.findIndex(chat => chat.id === chatId)]
 }
 
 const sendTypingToChat = (user) => {

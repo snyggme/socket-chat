@@ -5,6 +5,23 @@ import { FaSearch } from 'react-icons/fa';
 import { FaEject } from 'react-icons/fa';
 
 class SideBar extends Component {
+	constructor(props) {
+		super(props);
+
+		this.inputRef = React.createRef();
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+	handleSubmit(e) {
+		e.preventDefault();
+
+		const { socket, user } = this.props;
+		const chatId = this.inputRef.current.value;
+
+		socket.emit('ADD_USER_TO_CHAT', { chatId, user }, (chat) => {
+			this.props.addChat(chat)
+		});
+	}
 	render() {
 		const { chats, activeChat, user, setActiveChat, logout } = this.props;
 
@@ -17,16 +34,18 @@ class SideBar extends Component {
 						</div>
 					</div>
 					<div className='search'>
-						<i className='search-icon'><FaSearch /></i>
-						<input placeholder='search' type='text' />
-						<div className='plus' />
+						<form onSubmit={this.handleSubmit}>
+							<i className='search-icon'><FaSearch /></i>
+							<input ref={this.inputRef} placeholder='search' type='text' />
+							<div className='plus' />
+						</form>
 					</div>
 					<div 
 						className='users'
 						ref='users'
 						onClick={(e) => { (e.target === this.refs.user) && setActiveChat(null)}}>
 					
-						{	chats.length !== 0 &&
+						{	
 							chats.map((chat)=>{
 								if (chat.name) {
 									const lastMessage = chat.messages[chat.messages.length - 1];
