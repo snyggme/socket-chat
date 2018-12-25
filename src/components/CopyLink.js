@@ -28,7 +28,7 @@ class CopyLink extends Component {
 					<FaCopy />
 				</CopyToClipboard>
 				{
-					copied && <span>Link Copied!</span>
+					copied && <span>Copied!</span>
 				}
 			</div>
 		)

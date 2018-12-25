@@ -26,10 +26,10 @@ class Messages extends Component {
 				className='thread-container'>
 				<div>
 					{
-						messages.map((mes) => {
+						messages.map((mes, i) => {
 							return (
 								<div
-									key={mes.id}
+									key={i}
 									className={`message-container ${mes.sender === user.name && 'right'}`}
 								>
 									<div className='time'>{mes.time}</div>

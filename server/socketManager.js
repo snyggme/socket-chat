@@ -70,7 +70,10 @@ module.exports = socket => {
 
 		if (chat !== undefined) {
 			chat = addUserToChat(chat, user);
+
 			callback(chat);
+
+			io.emit('UPDATE_CHAT', chat);
 		}		
 	})
 }
@@ -84,21 +87,25 @@ const addUserToChat = (chat, user) => {
 }
 
 const findChatById = (chatId) => {
-	return allChats[allChats.findIndex(chat => chat.id === chatId)]
+	return allChats[allChats.findIndex(chat => chat.id === chatId)];
 }
 
 const sendTypingToChat = (user) => {
 	return (chatId, isTyping) => {
-		io.emit(`TYPING-${chatId}`, { user, isTyping})
+		io.emit(`TYPING-${chatId}`, { user, isTyping});
 	}
 }
 
 const sendMessageToChat = (sender) => {
 	return (chatId, message) => {
-		io.emit(`MESSAGE_RECEIVED-${chatId}`, createMessage({
+		const newMessage = createMessage({
 			message,
 			sender
-		}))
+		})
+
+		findChatById(chatId).messages.push(newMessage);
+
+		io.emit(`MESSAGE_RECEIVED-${chatId}`, newMessage);
 	}
 }
 

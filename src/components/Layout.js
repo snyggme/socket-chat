@@ -46,7 +46,7 @@ class Layout extends Component {
   	render() {
   		const { socket, user } = this.state;
 	    return (
-	    	<div className=''>
+	    	<div className='layout-container'>
 	        	{
 	        		!user 
 	        			? <LoginForm socket={socket} setUser={this.setUser} />	

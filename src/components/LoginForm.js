@@ -42,17 +42,18 @@ class LoginForm extends Component {
 		const { nickname, error } = this.state;
 		return (
 			<div className='login'>
-				<form onSubmit={this.handleSubmit} className='login-form'>
+				<form onSubmit={this.handleSubmit} id='login-form'>
 					<label htmlFor='nickname'>
 						<h2>Got a nickname?</h2>
 					</label>
+					
 					<input
 						ref={(input) => { this.textInput = input}}
 						type='text'
 						id='nickname'
 						value={nickname}
 						onChange={this.handleChange}
-						placeholder='my cool username'
+						placeholder='awesome username'
 					/>
 					<div className='error'>{error}</div>
 				</form>

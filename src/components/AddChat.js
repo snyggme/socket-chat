@@ -18,7 +18,6 @@ class AddChat extends Component {
 		if (activeChat.id !== chatId) {
 			socket.emit('ADD_USER_TO_CHAT', { chatId, user }, (chat) => {
 				this.props.addChat(chat);
-				this.props.setActiveChat(chat);
 			});
 		}
 
@@ -28,9 +27,8 @@ class AddChat extends Component {
 		return(
 			<div className='add-chat'>
 				<form onSubmit={this.handleSubmit}>
+					<input ref={this.inputRef} placeholder='insert chat link' type='text' />
 					<i className='add-chat-icon'><FaPlus /></i>
-					<input ref={this.inputRef} placeholder='add chat' type='text' />
-					<div className='plus' />
 				</form>
 			</div>	
 		)
