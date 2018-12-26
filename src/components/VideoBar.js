@@ -23,7 +23,6 @@ class VideoBar extends Component {
 
 		socket.on(streamEvent, (image) => {
 			img.src = image
-			console.log('im here in cdm method')
 		})
 	}
 	componentDidUpdate(prevProps) {
@@ -37,7 +36,6 @@ class VideoBar extends Component {
 
 			socket.on(streamEvent, (image) => {
 				img.src = image
-				console.log('im here in cdu method')
 			})
 		}
 	}
@@ -45,36 +43,46 @@ class VideoBar extends Component {
 		const { socket, activeChat } = this.props;
 		const canvas = this.canvas.current;
 		const context = canvas.getContext("2d");
+		context.width = canvas.width;
+		context.height = canvas.height;
 		const video = this.video.current;
-
-		this.setState(prevState => ({
-			playing: !prevState.playing
-		}));
 
 		navigator.getUserMedia = navigator.getUserMedia || 
 								 navigator.webkitGetUserMedia || 
 								 navigator.mozGetUserMedia || 
 								 navigator.msgGetUserMedia;
 
-	    if(navigator.getUserMedia) {
-	       	navigator.getUserMedia(
-	       		{ video : true, audio: true }, 
-	       		(stream) => {
-	       			video.src = window.URL.createObjectURL(stream);
-	       		}, 
-	       		(err) => console.log(err.message)
-	       	);
-	    }
-	     
-	    // CLEAR INTERVAL IF NOT PLAYING 
-	    setInterval(() => {
-	    	// context.drawImage(video, 0, 0, 330, 240);
-	    	console.log('from setInterval')
-	    	socket.emit('STREAM', { 
-	    		image: canvas.toDataURL('image/webp'), 
-	    		chatId: activeChat.id 
-	    	});
-	    }, 1000);
+		this.setState(prevState => ({
+			playing: !prevState.playing
+		}), () => {
+			if(navigator.getUserMedia) {
+		       	navigator.getUserMedia(
+		       		{ video : true, audio: true }, 
+		       		(stream) => {
+		       			if (this.state.playing) {
+		       				video.srcObject = stream;
+		       				video.play();
+		       			} else {
+		       				video.srcObject = null;
+		       			}
+		       		}, 
+		       		(err) => console.log(err.message)
+		       	);
+		    }
+
+		   if (this.state.playing) {
+		   		window.timer = setInterval(() => {
+			    	context.drawImage(video, 0, 0, context.width, context.height);
+
+			    	socket.emit('STREAM', { 
+			    		image: canvas.toDataURL('image/webp'), 
+			    		chatId: activeChat.id 
+			    	});
+			    }, 70);
+		    } else {
+		   		clearInterval(window.timer);
+		    }
+		});
 	}
 	render() {
 		const { playing } = this.state;
@@ -85,15 +93,16 @@ class VideoBar extends Component {
 					onClick={this.handleClick}>
 					<FaVideo />
 				</div>
-				{
-					playing
-						? <video 
-							ref={this.video} 
-							style={{width: '330px', height: '680px'}}
-							 />
-						: <img ref={this.img} alt='video placeholder' />
+				{ !playing &&
+					<div className='video-img'>
+						<img ref={this.img} alt=' ' />
+					</div>
 				}
-				<canvas style={{display:'none'}} ref={this.canvas} />
+				<video 
+					ref={this.video} 
+					style={{width: '330px', height: '680px', display: playing ? 'inherit' : 'none'}}
+				/>
+				<canvas style={{width: '330px', height: '330px', display:'none'}} ref={this.canvas} />
 			</div>
 		)
 	}

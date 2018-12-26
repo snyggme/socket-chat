@@ -255,8 +255,14 @@ div.chat-container {
 			cursor: pointer;
 			flex: 0 1 50px;
 			align-self: center;
+		}
 
-			
+		.video-img {
+			display: flex;
+			align-items: center;
+			height: 680px;
+			width: 300px;
+			margin: 0 auto;
 		}
 	}
 }
