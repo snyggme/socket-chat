@@ -10,4 +10,4 @@ Runs the app. Open [http://localhost:3000](http://localhost:3000) to view it in 
 
 Demo
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://github.com/snyggme/socket-chat/blob/master/public/demo.jpg?raw=true)
