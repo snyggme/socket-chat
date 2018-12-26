@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import LoginForm from './LoginForm';
-import ChatContainer from '../chats/ChatContainer';
+import ChatContainer from './ChatContainer';
 
 const socketUrl = 'http://localhost:3001';
 

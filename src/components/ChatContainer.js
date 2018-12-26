@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import SideBar from './SideBar';
 import ChatHeading from './ChatHeading';
-import Messages from '../messages/Messages';
-import MessageInput from '../messages/MessageInput';
+import Messages from './Messages';
+import MessageInput from './MessageInput';
+import VideoBar from './VideoBar';
 
 class ChatContainer extends Component {
 	constructor(props) {
@@ -15,8 +16,6 @@ class ChatContainer extends Component {
 
 		this.setActiveChat = this.setActiveChat.bind(this);
 		this.addChat = this.addChat.bind(this);
-		this.addMessageToChat = this.addMessageToChat.bind(this);
-		this.updateTypingInChat = this.updateTypingInChat.bind(this);
 	}
 	componentDidMount() {
 		const { socket } = this.props;
@@ -39,11 +38,13 @@ class ChatContainer extends Component {
 		const i = chats.findIndex(ch => ch.id === id);
 
 		this.setState({
-			chats: [
-				...chats.slice(0, i),
-				chat,
-				...chats.slice(i + 1)
-			],
+			chats: activeChat.id === chat.id 
+				? [
+					...chats.slice(0, i),
+					chat,
+					...chats.slice(i + 1)
+				] 
+				: [...chats],
 			activeChat: activeChat.id === chat.id ? chat : activeChat
 		})
 	}
@@ -154,6 +155,11 @@ class ChatContainer extends Component {
 							</div>
 						)
 				}
+				{
+					activeChat && 
+						<VideoBar socket={socket} activeChat={activeChat} />
+				}
+				
 			</div>
 		)
 	}

@@ -1,5 +1,5 @@
 const io = require('./server.js').io;	
-const { createUser, createChat, createMessage } = require('../src/utils/factories');
+const { createUser, createChat, createMessage } = require('../src/utils/utils');
 
 let connectedUsers = {}
 let allChats = [];
@@ -75,6 +75,10 @@ module.exports = socket => {
 
 			io.emit('UPDATE_CHAT', chat);
 		}		
+	})
+
+	socket.on('STREAM', ({ image, chatId }) => {
+		socket.broadcast.emit(`STREAM-${chatId}`, image);
 	})
 }
 

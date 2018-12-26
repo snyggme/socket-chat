@@ -4,27 +4,25 @@ class Messages extends Component {
 	constructor(props) {
 		super(props);
 
+		this.allMessages = React.createRef();
+
 		this.scrollDown = this.scrollDown.bind(this);
-	}
-	componentDidMount() {
-		this.scrollDown();
 	}
 	componentDidUpdate(prevProps, prevState) {
 		this.scrollDown();
 	}
 	scrollDown() {
-		const { container } = this.refs;
+		const div = this.allMessages.current
 
-		container.scrollTop = container.scrollHeight;
+		div.scrollTop = div.scrollHeight;
 	}
 	render() {
 		const { messages, user, typingUsers } = this.props;
 
 		return (
 			<div
-				ref='container'
+				ref={this.allMessages}
 				className='thread-container'>
-				<div>
 					{
 						messages.map((mes, i) => {
 							return (
@@ -32,10 +30,10 @@ class Messages extends Component {
 									key={i}
 									className={`message-container ${mes.sender === user.name && 'right'}`}
 								>
-									<div className='time'>{mes.time}</div>
-									<div className='data'>
-										<div className='message'>{mes.message}</div>
+									<div className={`data ${mes.sender === user.name && 'right-corner'}`}>
 										<div className='name'>{mes.sender}</div>
+										<div className='message'>{mes.message}</div>
+										<div className='time'>{mes.time}</div>
 									</div>
 								</div>
 							)
@@ -48,7 +46,6 @@ class Messages extends Component {
 							</div>
 						})
 					}
-				</div>
 			</div>
 		)
 	}

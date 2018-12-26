@@ -99,7 +99,9 @@ div.chat-container {
 					justify-self: center;
 
 					.room-name {
+						max-width: 240px;
 						cursor: pointer;
+						word-wrap: break-word;
 					}
 
 					.room-last-message {
@@ -123,12 +125,14 @@ div.chat-container {
 			color: white;
 			background-color: #6b6c6d;
 			display: grid;
-			grid-template-columns: 2fr 1fr;
+			grid-template-columns: 240px 1fr;
 			grid-template-rows: 1fr;
 			align-items: center;
 			justify-items: center;
 
 			span {
+				max-width: 240px;
+				word-wrap: break-word;
 				font-size: 30px;
 				font-weight: bold;
 			}
@@ -169,6 +173,50 @@ div.chat-container {
 		div.thread-container {
 			flex: 1 1 100px;
 			padding-left: 50px;
+			padding-right: 50px;
+			overflow-y: auto;
+
+			.message-container {
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr;
+				justify-items: flex-start;
+
+				.data {
+					display: inline-block;
+					max-width: 500px;
+					word-wrap: break-word;
+					min-height: 80px;
+					color: black;
+					background-color: white;
+					margin-bottom: 10px;
+					padding: 10px 30px;
+					border-radius: 30px;
+					border-top-left-radius: 0px;
+
+					.name {
+						color: grey;
+						padding-bottom: 10px;
+					}
+
+					.time {
+						font-size: 16px;
+						padding-top: 10px;
+						color:grey;
+					}
+
+				}
+
+				.right-corner {
+					border-top-left-radius: 20px;
+					border-top-right-radius: 0px;
+				}
+			}
+
+			.right {
+				justify-items: flex-end;
+			}
+
 		}
 
 		div.message-input {
@@ -194,7 +242,21 @@ div.chat-container {
 				}
 			}
 		}
-
 	}
 
+	div.video-container {
+		flex: 0 1 330px;
+		display: flex;
+		flex-direction: column;
+
+		.video-icon {
+			margin-top: 10px;
+			padding: 10px 20px;
+			cursor: pointer;
+			flex: 0 1 50px;
+			align-self: center;
+
+			
+		}
+	}
 }

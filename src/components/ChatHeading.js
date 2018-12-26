@@ -1,7 +1,4 @@
 import React from 'react';
-import { FaVideo } from 'react-icons/fa';
-import { FaUserPlus } from 'react-icons/fa';
-import { FaEllipsisH } from 'react-icons/fa';
 
 const ChatHeading = ({ name, users }) => {
 	return (
@@ -14,11 +11,6 @@ const ChatHeading = ({ name, users }) => {
 						users.map(({ name }) => <span key={name}>{name} </span>)
 					}
 				</div>
-			</div>
-			<div className='options'>
-				<FaVideo />
-				<FaUserPlus />
-				<FaEllipsisH />
 			</div>
 		</div>
 	)

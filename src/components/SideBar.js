@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AddChat from '../components/AddChat';
-import ChatRoom from '../components/ChatRoom';
-import CurrentUser from '../components/CurrentUser';
+import AddChat from './AddChat';
+import ChatRoom from './ChatRoom';
+import CurrentUser from './CurrentUser';
 
 class SideBar extends Component {
 	render() {
