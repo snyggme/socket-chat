@@ -3,8 +3,6 @@ const { createUser, createChat, createMessage } = require('../src/utils/utils');
 
 let connectedUsers = {}
 let allChats = [];
-let communityChat = createChat();
-allChats.push(communityChat);
 
 module.exports = socket => {
 	console.log(`socket id ${socket.id}`);
