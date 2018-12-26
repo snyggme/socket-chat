@@ -8,3 +8,6 @@ Runs the app. Open [http://localhost:3000](http://localhost:3000) to view it in 
 
 ### `npm start`
 
+Demo
+
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
