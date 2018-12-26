@@ -11,3 +11,7 @@ Runs the app. Open [http://localhost:3000](http://localhost:3000) to view it in 
 Demo
 
 ![alt text](https://github.com/snyggme/socket-chat/blob/master/public/demo.jpg?raw=true)
+
+Click icon to copy to clipboard link for sharing it with friends!
+
+![alt text](https://github.com/snyggme/socket-chat/blob/master/public/link.jpg?raw=true)
