@@ -12,8 +12,6 @@ class VideoBar extends Component {
 		this.img = React.createRef();
 		this.canvas = React.createRef();
 		this.video = React.createRef();
-
-		this.handleClick = this.handleClick.bind(this);
 	}
 	componentDidMount() {
 		const { socket, activeChat } = this.props;
@@ -39,7 +37,7 @@ class VideoBar extends Component {
 			})
 		}
 	}
-	handleClick() {
+	handleClick = () => {
 		const { socket, activeChat } = this.props;
 		const canvas = this.canvas.current;
 		const context = canvas.getContext("2d");

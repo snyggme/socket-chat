@@ -8,27 +8,23 @@ class MessageInput extends Component {
 			message: '',
 			isTyping: false
 		}
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.sendTyping = this.sendTyping.bind(this);
-		this.sendMessage = this.sendMessage.bind(this);
 	}
 	componentWillUnmount() {
 		this.stopCheckingTyping();
 	}
-	handleSubmit(e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 
 		this.sendMessage();
 
 		this.setState({ message: ''})
 	}
-	sendMessage() {
+	sendMessage = () => {
 		const { message } = this.state;
 
 		this.props.sendMessage(message);
 	}
-	sendTyping() {
+	sendTyping = () => {
 		this.lastUpdateTime = Date.now();
 
 		const { isTyping } = this.state;

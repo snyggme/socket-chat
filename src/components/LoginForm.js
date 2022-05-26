@@ -8,13 +8,8 @@ class LoginForm extends Component {
 			nickname: '',
 			error: null
 		}
-
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-		this.setUser = this.setUser.bind(this);
-		this.setError = this.setError.bind(this);
 	}
-	setUser({ user, isUser }) {
+	setUser = ({ user, isUser }) => {
 		if (isUser) {
 			this.setError('Username taken');
 		} else {
@@ -22,12 +17,12 @@ class LoginForm extends Component {
 			this.setError('');
 		}
 	}
-	handleChange(e) {
+	handleChange = (e) => {
 		this.setState({
 			nickname: e.target.value
 		})
 	}
-	handleSubmit(e) {
+	handleSubmit = (e) => {
 		e.preventDefault();
 
 		const { socket } = this.props;
@@ -35,7 +30,7 @@ class LoginForm extends Component {
 
 		socket.emit('VERIFY_USER', nickname, this.setUser)
 	}
-	setError(error) {
+	setError = (error) => {
 		this.setState({ error })
 	}
 	render() {
@@ -46,7 +41,6 @@ class LoginForm extends Component {
 					<label htmlFor='nickname'>
 						<h2>Got a nickname?</h2>
 					</label>
-					
 					<input
 						ref={(input) => { this.textInput = input}}
 						type='text'

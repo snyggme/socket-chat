@@ -5,13 +5,11 @@ class Messages extends Component {
 		super(props);
 
 		this.allMessages = React.createRef();
-
-		this.scrollDown = this.scrollDown.bind(this);
 	}
 	componentDidUpdate(prevProps, prevState) {
 		this.scrollDown();
 	}
-	scrollDown() {
+	scrollDown = () => {
 		const div = this.allMessages.current
 
 		div.scrollTop = div.scrollHeight;

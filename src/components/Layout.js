@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import LoginForm from './LoginForm';
 import ChatContainer from './ChatContainer';
 
@@ -13,30 +13,25 @@ class Layout extends Component {
 			socket: null,
 			user: null
 		}
-
-		this.initSocket = this.initSocket.bind(this);
-		this.setUser = this.setUser.bind(this);
-		this.logout = this.logout.bind(this);
-
 	}
-	componentWillMount() {
+	componentDidMount() {
 		this.initSocket();
 	}
-	initSocket() {
+	initSocket = () => {
 		const socket = io(socketUrl);
 		socket.on('connect', () => {
 			console.log('connected');
 		})
 		this.setState({ socket })
 	}
-	setUser(user) {
+	setUser = (user) => {
 		const { socket } = this.state;
 
 		socket.emit('USER_CONNECTED', user);
 
 		this.setState({	user });
 	}
-	logout() {
+	logout = () => {
 		const { socket } = this.state;
 		
 		socket.emit('LOGOUT');

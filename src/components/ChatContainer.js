@@ -13,9 +13,6 @@ class ChatContainer extends Component {
 			chats: [],
 			activeChat: null,
 		}
-
-		this.setActiveChat = this.setActiveChat.bind(this);
-		this.addChat = this.addChat.bind(this);
 	}
 	componentDidMount() {
 		const { socket } = this.props;
@@ -48,7 +45,7 @@ class ChatContainer extends Component {
 			activeChat: activeChat.id === chat.id ? chat : activeChat
 		})
 	}
-	addChat(chat, reset = false) {
+	addChat = (chat, reset = false) => {
 		const { socket } = this.props;
 		const { chats } = this.state;
 
@@ -103,7 +100,7 @@ class ChatContainer extends Component {
 			}
 		}
 	}
-	setActiveChat(activeChat) {
+	setActiveChat = (activeChat) => {
 		this.setState({ activeChat })
 	}
 	sendMessage(chatId, message) {
